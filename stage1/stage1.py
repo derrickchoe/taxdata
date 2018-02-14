@@ -180,6 +180,7 @@ for i in range(2014, 2027):
     Wage_10 = return_projection.WAGE_10[i]*cbo_growth_rates.Wages[i+1]
     Wage_11 = return_projection.WAGE_11[i]*cbo_growth_rates.Wages[i+1]
     Wage_12 = return_projection.WAGE_12[i]*cbo_growth_rates.Wages[i+1]
+    MED_return = return_projection.MED_return[i]*return_growth_rate.Returns[i+1]
 
     current_year = pd.DataFrame([Single, Joint, HH,
                                  SS_return, Dep_return,
@@ -187,7 +188,7 @@ for i in range(2014, 2027):
                                  CGNS, Pension, SCHEI, SCHEL, SS, UCOMP, IPD,
                                  Wage_1, Wage_2, Wage_3, Wage_4, Wage_5,
                                  Wage_6, Wage_7, Wage_8, Wage_9, Wage_10,
-                                 Wage_11, Wage_12])
+                                 Wage_11, Wage_12, MED_return])
     current_year = current_year.transpose()
 
     current_year.columns = return_projection.columns
@@ -273,7 +274,8 @@ rename = {
     'WAGE_9': 'Wages and Salaries: $100,000 Less Than $200,000',
     'WAGE_10': 'Wages and Salaries: $200,000 Less Than $500,000',
     'WAGE_11': 'Wages and Salaries: $500,000 Less Than $1 Million',
-    'WAGE_12': 'Wages and Salaries: $1 Million and Over'
+    'WAGE_12': 'Wages and Salaries: $1 Million and Over',
+    'MED_return': 'Returns with Medical Expenses Deducted'
 }
 Stage_II_targets.rename(columns=rename, inplace=True)
 
