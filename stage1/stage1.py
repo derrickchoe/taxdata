@@ -194,8 +194,17 @@ for i in range(2014, 2027):
     current_year.index = [i+1]
     return_projection = return_projection.append(current_year)
 
+med_est = pd.read_csv("IRS_med.csv", index_col=0)
+med_est = med_est.transpose()
+med_est.index = list(range(2008,2017))
+for i in range(2016, 2027):
+    MED = med_est.MED[i]*return_growth_rate.Returns[i+1]
+    med_est.loc[i + 1] = MED
+
 # combine historical data with the newly blownup data
 Stage_II_targets = pd.concat([Stage_II_targets, return_projection], axis=1)
+Stage_II_targets = pd.concat([Stage_II_targets, med_est], axis=1)
+
 
 # create all the rest of the Stage_I_factors
 data = Stage_II_targets[Stage_II_targets.columns[3:6]].sum(axis=1)
@@ -273,7 +282,9 @@ rename = {
     'WAGE_9': 'Wages and Salaries: $100,000 Less Than $200,000',
     'WAGE_10': 'Wages and Salaries: $200,000 Less Than $500,000',
     'WAGE_11': 'Wages and Salaries: $500,000 Less Than $1 Million',
-    'WAGE_12': 'Wages and Salaries: $1 Million and Over'
+    'WAGE_12': 'Wages and Salaries: $1 Million and Over',
+    'MED': 'Returns Taking Medical Expense Deduction',
+    # 'MED_exp' : 'Total Medical Expenses Filed'
 }
 Stage_II_targets.rename(columns=rename, inplace=True)
 
