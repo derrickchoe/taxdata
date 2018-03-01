@@ -31,27 +31,27 @@ z[:, 4] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
 z[:, 5] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
                             year='2016', tol=1)
 z[:, 6] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                            year='2017', tol=1)
+                            year='2017', tol=1.1)
 z[:, 7] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
                             year='2018', tol=1.2)
 z[:, 8] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                            year='2019', tol=1.2)
+                            year='2019', tol=2)
 z[:, 9] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                            year='2020', tol=1.2)
+                            year='2020', tol=2)
 z[:, 10] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2021', tol=1.2)
+                             year='2021', tol=2)
 z[:, 11] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2022', tol=1.2)
+                             year='2022', tol=3)
 z[:, 12] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2023', tol=1.2)
+                             year='2023', tol=3)
 z[:, 13] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2024', tol=1.2)
+                             year='2024', tol=3)
 z[:, 14] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2025', tol=1.2)
+                             year='2025', tol=3)
 z[:, 15] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2026', tol=1.2)
+                             year='2026', tol=3)
 z[:, 16] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2027', tol=1.2)
+                             year='2027', tol=4)
 
 # Write all weights (rounded to nearest integer) to puf_weights.csv file
 z = pd.DataFrame(z,
@@ -60,5 +60,5 @@ z = pd.DataFrame(z,
                           'WT2019', 'WT2020', 'WT2021', 'WT2022', 'WT2023',
                           'WT2024', 'WT2025', 'WT2026', 'WT2027'])
 z = z.round(0).astype('int64')
-z.to_csv('puf_weights.csv', index=False)
-subprocess.check_call(['gzip', '-nf', 'puf_weights.csv'])
+z.to_csv('puf_weights1.csv', index=False)
+subprocess.check_call(['gzip', '-nf', 'puf_weights1.csv'])

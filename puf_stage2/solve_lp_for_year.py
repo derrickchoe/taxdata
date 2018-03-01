@@ -8,7 +8,7 @@ def solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets, year, tol):
         med = pd.read_csv("/Users/derrick.cho/Desktop/taxdata/puf_data/med" + year + '.csv')
     else:
         med = pd.read_csv('/Users/derrick.cho/Desktop/taxdata/puf_data/med2013.csv')
-    puf = puf.join(med)
+    puf = puf.join(med.drop('c00100',  axis = 1))
     puf_length = len(puf.s006)
 
     print("Preparing coefficient matrix for year {} .....".format(year))
@@ -60,7 +60,13 @@ def solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets, year, tol):
     wage_11 = np.where((puf.e00100 > 500000) & (puf.e00100 <= 1000000),
                        puf.e00200, 0) * s006
     wage_12 = np.where(puf.e00100 > 1000000, puf.e00200, 0) * s006
-    med = np.where(puf.med == 1, s006, 0)
+    # med1 = np.where(puf.med1 == 1, s006, 0)
+    med2 = np.where(puf.med2 == 1, s006, 0)
+    med3 = np.where(puf.med3 == 1, s006, 0)
+    med4 = np.where(puf.med4 == 1, s006, 0)
+    med5 = np.where(puf.med5 == 1, s006, 0)
+    med6 = np.where(puf.med6 == 1, s006, 0)
+
     # med_exp = np.where((puf.med == 1), puf.e17500, 0) * s006
 
     # Set up the matrix
@@ -72,7 +78,8 @@ def solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets, year, tol):
                               ss_income, unemployment_comp,
                               wage_1, wage_2, wage_3, wage_4, wage_5,
                               wage_6, wage_7, wage_8, wage_9, wage_10,
-                              wage_11, wage_12, med))
+                              wage_11, wage_12, med2, med3, med4,
+                              med5, med6))
 
     # Coefficients for r and s
     A1 = np.matrix(One_half_LHS)
@@ -173,8 +180,18 @@ def solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets, year, tol):
     target_name = "Wages and Salaries: $1 Million and Over"
     WAGE_12 = (Stage_II_targets[year][target_name] *
                APOPN / AWAGE * 1000 - wage_12.sum())
-    target_name = 'Returns Taking Medical Expense Deduction'
-    MED = Stage_II_targets[year][target_name] - med.sum()
+    # target_name = 'Returns Taking Medical Expense Deduction U15'
+    # MED1 = Stage_II_targets[year][target_name] - med1.sum()
+    target_name = 'Returns Taking Medical Expense Deduction 15U30'
+    MED2 = Stage_II_targets[year][target_name] - med2.sum()
+    target_name = 'Returns Taking Medical Expense Deduction 30U50'
+    MED3 = Stage_II_targets[year][target_name] - med3.sum()
+    target_name = 'Returns Taking Medical Expense Deduction 50U100'
+    MED4 = Stage_II_targets[year][target_name] - med4.sum()
+    target_name = 'Returns Taking Medical Expense Deduction 100U200'
+    MED5 = Stage_II_targets[year][target_name] - med5.sum()
+    target_name = 'Returns Taking Medical Expense Deduction 200'
+    MED6 = Stage_II_targets[year][target_name] - med6.sum()
 
 
 
@@ -183,7 +200,8 @@ def solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets, year, tol):
             ANNUITY_PENSION, SCH_E_INCOME, SCH_E_LOSS, SS_INCOME,
             UNEMPLOYMENT_COMP,
             WAGE_1, WAGE_2, WAGE_3, WAGE_4, WAGE_5, WAGE_6,
-            WAGE_7, WAGE_8, WAGE_9, WAGE_10, WAGE_11, WAGE_12, MED]
+            WAGE_7, WAGE_8, WAGE_9, WAGE_10, WAGE_11, WAGE_12, MED2,
+            MED3, MED4, MED5, MED6]
     for m in temp:
         b.append(m)
 
