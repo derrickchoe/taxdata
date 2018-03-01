@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from solve_lp_for_year import solve_lp_for_year
+import subprocess
 
 # Read private CPS-matched-PUF file into a Pandas DataFrame
 puf = pd.read_csv("../puf_data/cps-matched-puf.csv")
@@ -59,4 +60,5 @@ z = pd.DataFrame(z,
                           'WT2019', 'WT2020', 'WT2021', 'WT2022', 'WT2023',
                           'WT2024', 'WT2025', 'WT2026', 'WT2027'])
 z = z.round(0).astype('int64')
-z.to_csv('puf_weights1.csv', index=False)
+z.to_csv('puf_weights.csv', index=False)
+subprocess.check_call(['gzip', '-nf', 'puf_weights.csv'])
