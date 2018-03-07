@@ -240,7 +240,7 @@ Stage_I_factors['AIPD'] = Stage_II_targets.IPD/Stage_II_targets.IPD[SYR]
 # Add benefit growth rates to Stage 1 factors
 benefit_programs = pd.read_csv('../cps_data/benefitprograms.csv',
                                index_col='Program')
-benefit_programs.drop('Unemployment Assistance', inplace=True)
+# benefit_programs.drop('Unemployment Assistance', inplace=True)
 benefit_sums = benefit_programs[benefit_programs.columns[2:]].apply(sum)
 # Find growth rate between 2020 and 2021 and extrapolate out to 2027
 gr = benefit_sums['2021_cost'] / float(benefit_sums['2020_cost'])
@@ -290,7 +290,7 @@ rename = {
     'WAGE_11': 'Wages and Salaries: $500,000 Less Than $1 Million',
     'WAGE_12': 'Wages and Salaries: $1 Million and Over',
     'MED1': 'Returns Taking Medical Expense Deduction U15',
-    'MED2': 'Returns Taking Medical Expense Deduction 15U30',
+    'MED2': 'Returns Taking Medical Expense Deduction U30',
     'MED3': 'Returns Taking Medical Expense Deduction 30U50',
     'MED4': 'Returns Taking Medical Expense Deduction 50U100',
     'MED5': 'Returns Taking Medical Expense Deduction 100U200',

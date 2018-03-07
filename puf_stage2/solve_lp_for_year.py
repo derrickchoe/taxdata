@@ -182,7 +182,7 @@ def solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets, year, tol):
                APOPN / AWAGE * 1000 - wage_12.sum())
     # target_name = 'Returns Taking Medical Expense Deduction U15'
     # MED1 = Stage_II_targets[year][target_name] - med1.sum()
-    target_name = 'Returns Taking Medical Expense Deduction 15U30'
+    target_name = 'Returns Taking Medical Expense Deduction U30'
     MED2 = Stage_II_targets[year][target_name] - med2.sum()
     target_name = 'Returns Taking Medical Expense Deduction 30U50'
     MED3 = Stage_II_targets[year][target_name] - med3.sum()
