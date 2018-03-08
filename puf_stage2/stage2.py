@@ -41,17 +41,17 @@ z[:, 9] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
 z[:, 10] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
                              year='2021', tol=1)
 z[:, 11] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2022', tol=1)
+                             year='2022', tol=1.1)
 z[:, 12] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2023', tol=1)
+                             year='2023', tol=1.1)
 z[:, 13] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2024', tol=1)
+                             year='2024', tol=1.2)
 z[:, 14] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2025', tol=1)
+                             year='2025', tol=1.2)
 z[:, 15] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2026', tol=1.1)
+                             year='2026', tol=1.2)
 z[:, 16] = solve_lp_for_year(puf, Stage_I_factors, Stage_II_targets,
-                             year='2027', tol=1.2)
+                             year='2027', tol=1.3)
 
 # Write all weights (rounded to nearest integer) to puf_weights.csv file
 z = pd.DataFrame(z,
